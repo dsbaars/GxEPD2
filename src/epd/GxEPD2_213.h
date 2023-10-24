@@ -31,7 +31,7 @@ class GxEPD2_213 : public GxEPD2_EPD
     static const uint16_t full_refresh_time = 4000; // ms, e.g. 3883686us
     static const uint16_t partial_refresh_time = 300; // ms, e.g. 268173us
     // constructor
-    GxEPD2_213(int16_t cs, int16_t dc, int16_t rst, int16_t busy);
+    GxEPD2_213(UniversalPin *cs, UniversalPin *dc, UniversalPin *rst, UniversalPin *busy);
     // methods (virtual)
     //  Support for Bitmaps (Sprites) to Controller Buffer and to Screen
     void clearScreen(uint8_t value = 0xFF); // init controller memory and screen (default white)

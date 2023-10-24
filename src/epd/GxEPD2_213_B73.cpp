@@ -13,7 +13,7 @@
 
 #include "GxEPD2_213_B73.h"
 
-GxEPD2_213_B73::GxEPD2_213_B73(int16_t cs, int16_t dc, int16_t rst, int16_t busy) :
+GxEPD2_213_B73::GxEPD2_213_B73(UniversalPin *cs, UniversalPin *dc, UniversalPin *rst, UniversalPin *busy) :
   GxEPD2_EPD(cs, dc, rst, busy, HIGH, 10000000, WIDTH, HEIGHT, panel, hasColor, hasPartialUpdate, hasFastPartialUpdate)
 {
 }

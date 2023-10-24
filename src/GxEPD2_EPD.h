@@ -16,6 +16,8 @@
 #include <SPI.h>
 
 #include <GxEPD2.h>
+#include <universal_pin.hpp>
+
 
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 //#pragma GCC diagnostic ignored "-Wsign-compare"
@@ -31,7 +33,7 @@ class GxEPD2_EPD
     const bool hasPartialUpdate;
     const bool hasFastPartialUpdate;
     // constructor
-    GxEPD2_EPD(int16_t cs, int16_t dc, int16_t rst, int16_t busy, int16_t busy_level, uint32_t busy_timeout,
+    GxEPD2_EPD(UniversalPin *cs, UniversalPin *dc, UniversalPin *rst, UniversalPin *busy, int16_t busy_level, uint32_t busy_timeout,
                uint16_t w, uint16_t h, GxEPD2::Panel p, bool c, bool pu, bool fpu);
     virtual void init(uint32_t serial_diag_bitrate = 0); // serial_diag_bitrate = 0 : disabled
     virtual void init(uint32_t serial_diag_bitrate, bool initial, uint16_t reset_duration = 10, bool pulldown_rst_mode = false);
@@ -112,7 +114,8 @@ class GxEPD2_EPD
     void _transfer(uint8_t value);
     void _endTransfer();
   protected:
-    int16_t _cs, _dc, _rst, _busy, _busy_level;
+    UniversalPin *_cs, *_dc, *_rst, *_busy;
+    int16_t _busy_level;
     uint32_t _busy_timeout;
     bool _diag_enabled, _pulldown_rst_mode;
     SPIClass* _pSPIx;

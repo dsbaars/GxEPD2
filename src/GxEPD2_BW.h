@@ -70,9 +70,9 @@
 #if __has_include("epd/GxEPD2_154_M10.h")
 #include "epd/GxEPD2_154_M10.h"
 #endif
-#if __has_include("gdey/GxEPD2_154_GDEY0154D67.h")
-#include "gdey/GxEPD2_154_GDEY0154D67.h"
-#endif
+// #if __has_include("gdey/GxEPD2_154_GDEY0154D67.h")
+// #include "gdey/GxEPD2_154_GDEY0154D67.h"
+// #endif
 #if __has_include("epd/GxEPD2_213.h")
 #include "epd/GxEPD2_213.h"
 #endif
