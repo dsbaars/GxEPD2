@@ -332,6 +332,26 @@ class GxEPD2_BW : public GxEPD2_GFX_BASE_CLASS
       if (!partial_update_mode) epd2.powerOff();
     }
 
+    // Returns false when exception occurs
+    bool displayWithReturn(bool partial_update_mode = false)
+    {
+      try
+      {
+        display(partial_update_mode);
+        return true;
+      }
+      catch (const std::exception &e)
+      {
+        Serial.printf("Exception thrown: \"%s\"", e.what());
+        return false;
+      }
+      catch (...)
+      {
+        Serial.println("Other exception thrown.");
+        return false;
+      }
+    }
+
     // display part of buffer content to screen, useful for full screen buffer
     // displayWindow, use parameters according to actual rotation.
     // x and w should be multiple of 8, for rotation 0 or 2,
