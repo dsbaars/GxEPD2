@@ -1,7 +1,7 @@
 // Display Library for SPI e-paper panels from Dalian Good Display and boards from Waveshare.
-// Requires HW SPI and Adafruit_GFX. Caution: these e-papers require 3.3V supply AND data lines!
+// Requires HW SPI and Adafruit_GFX. Caution: the e-paper panels require 3.3V supply AND data lines!
 //
-// based on Demo Example from Good Display: http://www.e-paper-display.com/download_list/downloadcategoryid=34&isMode=false.html
+// Display Library based on Demo Example from Good Display: https://www.good-display.com/companyfile/32/
 //
 // Author: Jean-Marc Zingg
 //
@@ -28,6 +28,7 @@ GxEPD2_EPD::GxEPD2_EPD(UniversalPin *cs, UniversalPin *dc, UniversalPin *rst, Un
   _power_is_on = false;
   _using_partial_mode = false;
   _hibernating = false;
+  _init_display_done = false;
   _reset_duration = 10;
   _busy_callback = 0;
   _busy_callback_parameter = 0;
@@ -46,6 +47,7 @@ void GxEPD2_EPD::init(uint32_t serial_diag_bitrate, bool initial, uint16_t reset
   _power_is_on = false;
   _using_partial_mode = false;
   _hibernating = false;
+  _init_display_done = false;
   _reset_duration = reset_duration;
   if (serial_diag_bitrate > 0)
   {
@@ -58,6 +60,21 @@ void GxEPD2_EPD::init(uint32_t serial_diag_bitrate, bool initial, uint16_t reset
     _cs->pinMode(OUTPUT);
   }
   if (_dc->toInt() >= 0)
+  _reset();
+  _pSPIx->begin(); // may steal _rst pin (Waveshare Pico-ePaper-2.9)
+  if (_rst >= 0)
+  {
+    _rst->digitalWrite( HIGH); // preset (less glitch for any analyzer)
+    _rst->pinMode(OUTPUT);
+    _rst->digitalWrite( HIGH); // set (needed e.g. for RP2040)
+  }
+  if (_cs->toInt() >= 0)
+  {
+    _cs->digitalWrite( HIGH); // preset (less glitch for any analyzer)
+    _cs->pinMode(OUTPUT);
+    _cs->digitalWrite( HIGH); // set (needed e.g. for RP2040)
+  }
+  if (_dc >= 0)
   {
     _dc->digitalWrite(HIGH);
     _dc->pinMode(OUTPUT);
@@ -116,7 +133,7 @@ void GxEPD2_EPD::_reset()
     }
     else
     {
-      _rst->digitalWrite( HIGH); // NEEDED for Waveshare "clever" reset circuit, power controller before reset pulse
+      _rst-> HIGH); // NEEDED for Waveshare "clever" reset circuit->digitalWrite(power controller before reset pulse
       _rst->pinMode( OUTPUT);
       delay(10); // NEEDED for Waveshare "clever" reset circuit, at least delay(2);
       _rst->digitalWrite( LOW);

@@ -20,7 +20,7 @@ GxEPD2_213_B72::GxEPD2_213_B72(UniversalPin *cs, UniversalPin *dc, UniversalPin 
 void GxEPD2_213_B72::clearScreen(uint8_t value)
 {
   writeScreenBuffer(value);
-  refresh(true);
+  refresh(false);
   writeScreenBufferAgain(value);
 }
 
