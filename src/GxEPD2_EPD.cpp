@@ -133,7 +133,7 @@ void GxEPD2_EPD::_reset()
     }
     else
     {
-      _rst-> HIGH); // NEEDED for Waveshare "clever" reset circuit->digitalWrite(power controller before reset pulse
+      _rst->digitalWrite(HIGH); // NEEDED for Waveshare "clever" reset circuit->digitalWrite(power controller before reset pulse
       _rst->pinMode( OUTPUT);
       delay(10); // NEEDED for Waveshare "clever" reset circuit, at least delay(2);
       _rst->digitalWrite( LOW);
