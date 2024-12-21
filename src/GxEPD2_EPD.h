@@ -115,6 +115,23 @@ class GxEPD2_EPD
     void _startTransfer();
     void _transfer(uint8_t value);
     void _endTransfer();
+    void setCSPin(UniversalPin *cs) {
+      _cs = cs;
+      _cs->pinMode(OUTPUT);
+    };
+    void setDCPin(UniversalPin *dc) {
+      _dc = dc;
+      _dc->pinMode(OUTPUT);
+    };
+    void setRSTPin(UniversalPin *rst) {
+      _rst = rst;
+      _rst->pinMode(OUTPUT);
+    };
+    void setBusyPin(UniversalPin *busy) {
+      _busy = busy;
+      _busy->pinMode(INPUT);
+    };
+
   protected:
     UniversalPin *_cs, *_dc, *_rst, *_busy;
     int16_t _busy_level;
