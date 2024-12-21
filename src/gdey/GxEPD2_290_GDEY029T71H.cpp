@@ -13,7 +13,7 @@
 
 #include "GxEPD2_290_GDEY029T71H.h"
 
-GxEPD2_290_GDEY029T71H::GxEPD2_290_GDEY029T71H(int16_t cs, int16_t dc, int16_t rst, int16_t busy) :
+GxEPD2_290_GDEY029T71H::GxEPD2_290_GDEY029T71H(UniversalPin *cs, UniversalPin *dc, UniversalPin *rst, UniversalPin *busy) :
   GxEPD2_EPD(cs, dc, rst, busy, HIGH, 10000000, WIDTH, HEIGHT, panel, hasColor, hasPartialUpdate, hasFastPartialUpdate)
 {
 }
