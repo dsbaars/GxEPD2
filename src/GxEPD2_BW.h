@@ -649,20 +649,16 @@ class GxEPD2_BW : public GxEPD2_GFX_BASE_CLASS
       }
     }
     void setCSPin(UniversalPin *cs) {
-      _cs = cs;
-      _cs->pinMode(OUTPUT);
+      epd2.setCSPin(cs);
     };
     void setDCPin(UniversalPin *dc) {
-      _dc = dc;
-      _dc->pinMode(OUTPUT);
+      epd2.setDCPin(dc);
     };
     void setRSTPin(UniversalPin *rst) {
-      _rst = rst;
-      _rst->pinMode(OUTPUT);
-    };
+      epd2.setRSTPin(rst);
+    };  
     void setBusyPin(UniversalPin *busy) {
-      _busy = busy;
-      _busy->pinMode(INPUT);
+      epd2.setBusyPin(busy);
     };
   private:
     uint8_t _buffer[(GxEPD2_Type::WIDTH / 8) * page_height];
