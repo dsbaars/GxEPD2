@@ -102,19 +102,6 @@ class GxEPD2_EPD
       return (a > b ? a : b);
     };
     void selectSPI(SPIClass& spi, SPISettings spi_settings);
-  protected:
-    void _reset();
-    void _waitWhileBusy(const char* comment = 0, uint16_t busy_time = 5000);
-    void _writeCommand(uint8_t c);
-    void _writeData(uint8_t d);
-    void _writeData(const uint8_t* data, uint16_t n);
-    void _writeDataPGM(const uint8_t* data, uint16_t n, int16_t fill_with_zeroes = 0);
-    void _writeDataPGM_sCS(const uint8_t* data, uint16_t n, int16_t fill_with_zeroes = 0);
-    void _writeCommandData(const uint8_t* pCommandData, uint8_t datalen);
-    void _writeCommandDataPGM(const uint8_t* pCommandData, uint8_t datalen);
-    void _startTransfer();
-    void _transfer(uint8_t value);
-    void _endTransfer();
     void setCSPin(UniversalPin *cs) {
       _cs = cs;
       _cs->pinMode(OUTPUT);
@@ -131,6 +118,21 @@ class GxEPD2_EPD
       _busy = busy;
       _busy->pinMode(INPUT);
     };
+
+  protected:
+    void _reset();
+    void _waitWhileBusy(const char* comment = 0, uint16_t busy_time = 5000);
+    void _writeCommand(uint8_t c);
+    void _writeData(uint8_t d);
+    void _writeData(const uint8_t* data, uint16_t n);
+    void _writeDataPGM(const uint8_t* data, uint16_t n, int16_t fill_with_zeroes = 0);
+    void _writeDataPGM_sCS(const uint8_t* data, uint16_t n, int16_t fill_with_zeroes = 0);
+    void _writeCommandData(const uint8_t* pCommandData, uint8_t datalen);
+    void _writeCommandDataPGM(const uint8_t* pCommandData, uint8_t datalen);
+    void _startTransfer();
+    void _transfer(uint8_t value);
+    void _endTransfer();
+  
 
   protected:
     UniversalPin *_cs, *_dc, *_rst, *_busy;
