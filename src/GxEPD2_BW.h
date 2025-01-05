@@ -648,6 +648,22 @@ class GxEPD2_BW : public GxEPD2_GFX_BASE_CLASS
           break;
       }
     }
+    void setCSPin(UniversalPin *cs) {
+      _cs = cs;
+      _cs->pinMode(OUTPUT);
+    };
+    void setDCPin(UniversalPin *dc) {
+      _dc = dc;
+      _dc->pinMode(OUTPUT);
+    };
+    void setRSTPin(UniversalPin *rst) {
+      _rst = rst;
+      _rst->pinMode(OUTPUT);
+    };
+    void setBusyPin(UniversalPin *busy) {
+      _busy = busy;
+      _busy->pinMode(INPUT);
+    };
   private:
     uint8_t _buffer[(GxEPD2_Type::WIDTH / 8) * page_height];
     bool _using_partial_mode, _second_phase, _mirror, _reverse;
